@@ -1,8 +1,4 @@
 import fileinput
-import re
-import copy
-import string
-from collections import Counter
 
 
 def parse():
