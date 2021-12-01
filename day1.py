@@ -23,9 +23,6 @@ def task2(input):
 
     triplets = [input[i:i+3] for i in range(0, len(input))]
     for triplet in triplets:
-        if len(triplet) < 3:
-            break
-
         depth = sum(triplet)
 
         if previous_depth and depth > previous_depth:
