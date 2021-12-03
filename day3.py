@@ -21,23 +21,16 @@ def task1(input):
             else:
                 ones += 1
         if zeros > ones:
-            gamma.append(0)
-            epsilon.append(1)
+            gamma.append('0')
+            epsilon.append('1')
         else:
-            gamma.append(1)
-            epsilon.append(0)
+            gamma.append('1')
+            epsilon.append('0')
 
     return binaryToDec(gamma) * binaryToDec(epsilon)
 
 def binaryToDec(arr):
-    print(arr)
-    mul = 1
-    res = 0
-    for i in range(len(arr) -1, -1, -1):
-
-        res += mul * int(arr[i])
-        mul *= 2
-    return res
+    return int(''.join(arr), 2)
 
 
 def task2(input):
