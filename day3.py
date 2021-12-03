@@ -1,4 +1,5 @@
 import fileinput
+from collections import Counter
 
 
 def parse():
@@ -47,36 +48,28 @@ def oxygen(position, candidates):
     if len(candidates) == 1 or position >= len(candidates[0]):
         return list(candidates[0])
 
-    ones = 0
-    zeros = 0
-
+    counter = Counter()
 
     for l in candidates:
-        if l[position] == '0':
-            zeros += 1
-        else:
-            ones += 1
+        counter.update(l[position])
 
-    if ones >= zeros:
+    if counter['1'] >= counter['0']:
         return oxygen(position + 1, list(filter(lambda l: l[position] == '1', candidates)))
     else:
         return oxygen(position + 1, list(filter(lambda l: l[position] == '0', candidates)))
+
 
 
 def co2(position, candidates):
     if len(candidates) == 1 or position >= len(candidates[0]):
         return list(candidates[0])
 
-    ones = 0
-    zeros = 0
+    counter = Counter()
 
     for l in candidates:
-        if l[position] == '0':
-            zeros += 1
-        else:
-            ones += 1
+        counter.update(l[position])
 
-    if ones < zeros:
+    if counter['1'] < counter['0']:
         return co2(position + 1, list(filter(lambda l: l[position] == '1', candidates)))
     else:
         return co2(position + 1, list(filter(lambda l: l[position] == '0', candidates)))
