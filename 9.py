@@ -2,6 +2,9 @@ import fileinput
 import math
 from collections import deque
 
+dr = [-1, 0, 1, 0] # delta rows
+dc = [0, 1, 0, -1] # delta columns
+
 def parse():
     map = []
     for l in fileinput.input():
@@ -9,21 +12,24 @@ def parse():
     return map
 
 def task1(map):
+    R = len(map)
+    C = len(map[0])
+
     lowest = []
-    for row in range(len(map)):
-        for col in range(len(map[row])):
+    for row in range(R):
+        for col in range(C):
             candidate = map[row][col]
+            ok = True
 
-            if row > 0 and map[row - 1][col] <= candidate:
-                continue
-            if row < len(map) - 1 and map[row + 1][col] <= candidate:
-                continue
-            if col > 0 and map[row][col - 1] <= candidate:
-                continue
-            if col < len(map[row]) - 1 and map[row][col + 1] <= candidate:
-                continue
+            for d in range(len(dr)):
+                rr = row + dr[d]
+                cc = col + dc[d]
 
-            lowest.append(candidate)
+                if 0 <= rr < R and 0 <= cc < C and map[rr][cc] <= candidate:
+                    ok = False
+
+            if ok:
+                lowest.append(candidate)
 
     return sum([l +1 for l in lowest])
 
@@ -32,13 +38,11 @@ def task2(map):
     basins = []
     seen = set()
 
-    dr = [-1, 0, 1, 0] # delta rows
-    dc = [0, 1, 0, -1] # delta columns
-
     # borders
     R = len(map)
     C = len(map[0])
 
+    # from each point we're extending area up till we reach borders of nines. Using DFS
     for r in range(R):
         for c in range(C):
             if (r, c) not in seen and map[r][c] != 9:
@@ -57,7 +61,7 @@ def task2(map):
                         rr = r + dr[d]
                         cc = c + dc[d]
 
-                        # if it's in the grid
+                        # if it's in the grid and it's not the border (9)
                         if 0 <= rr < R and 0 <= cc < C and map[rr][cc] != 9:
                             q.append((rr, cc))
 
