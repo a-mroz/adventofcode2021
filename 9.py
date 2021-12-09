@@ -1,5 +1,6 @@
 import fileinput
-
+import math
+from collections import deque
 
 def parse():
     map = []
@@ -28,7 +29,43 @@ def task1(map):
 
 
 def task2(map):
-    pass
+    basins = []
+    seen = set()
+
+    dr = [-1, 0, 1, 0] # delta rows
+    dc = [0, 1, 0, -1] # delta columns
+
+    # borders
+    R = len(map)
+    C = len(map[0])
+
+    for r in range(R):
+        for c in range(C):
+            if (r, c) not in seen and map[r][c] != 9:
+                basin = 0
+                q = deque()
+                q.append((r, c))
+                while q:
+                    (r, c) = q.popleft()
+                    if (r, c) in seen:
+                        continue
+                    basin += 1
+                    seen.add((r, c))
+
+                    for d in range(len(dr)):
+                        # candidates
+                        rr = r + dr[d]
+                        cc = c + dc[d]
+
+                        # if it's in the grid
+                        if 0 <= rr < R and 0 <= cc < C and map[rr][cc] != 9:
+                            q.append((rr, cc))
+
+                basins.append(basin)
+
+
+    return math.prod(sorted(basins, reverse = True)[:3])
+
 
 input = parse()
 
