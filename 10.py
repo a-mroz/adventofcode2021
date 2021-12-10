@@ -4,10 +4,21 @@ import fileinput
 input = [l.strip() for l in fileinput.input()]
 
 invalid = []
-points = 0
+pointsCorrupted = 0
+pointsIncomplete = []
+
+
+incompletePunctation = {
+    '(': 1,
+    '[': 2,
+    '{': 3,
+    '<': 4,
+}
 
 for l in input:
     stack = []
+
+    corrupted = False
 
     for char in l:
         if char == '{' or char == '(' or char == '<' or char == '[':
@@ -15,24 +26,35 @@ for l in input:
         elif char == '}':
             if stack.pop() != '{':
                 invalid.append('}')
-                points += 1197
+                corrupted = True
                 break
         elif char == ')':
             if stack.pop() != '(':
                 invalid.append(')')
-                points += 3
+                corrupted = True
                 break
         elif char == '>':
             if stack.pop() != '<':
-                invalid.append('>')
-                points += 25137
+                corrupted = True
+                pointsCorrupted += 25137
                 break
         elif char == ']':
             if stack.pop() != '[':
-                invalid.append(']')
-                points += 57
+                pointsCorrupted += 57
+                corrupted = True
                 break
         else:
             print('invalid character', char)
 
-print(points)
+    # 2
+    if not corrupted > 0:
+        print(stack)
+        points = 0
+        for char in reversed(stack):
+            points = points * 5 + incompletePunctation[char]
+
+        pointsIncomplete.append(points)
+
+
+print(pointsCorrupted)
+print(sorted(pointsIncomplete)[int(len(pointsIncomplete)/2)])
