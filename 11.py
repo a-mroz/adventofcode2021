@@ -15,7 +15,7 @@ C = len(G[0])
 flashes = 0
 
 
-for _ in range(100):
+for gen in range(1, 1000):
     flashed = set()
 
     # step 1
@@ -62,10 +62,11 @@ for _ in range(100):
 
     flashes += len(flashed)
 
-    # print('\n')
-    # print(G)
-    # print(flashes)
+    # part1
+    if gen == 100:
+        print(flashes)
 
-
-
-print(flashes)
+    # part 2
+    if len(flashed) == R * C:
+        print(gen)
+        break
