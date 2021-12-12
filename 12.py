@@ -10,53 +10,14 @@ for l in fileinput.input():
     G[y].add(x)
 
 
-
-
-paths = set()
-
-def dfs(u, visited, current_path):
-
-    if u.islower():
-        visited.add(u)
-
-    current_path.append(u)
-
-    if u == 'end':
-        # print(current_path)
-        paths.add(str(current_path))
-
-        visited.remove(u)
-        current_path.pop()
-        return
-
-    for adj in G[u]:
-        if adj not in visited:
-            dfs(adj, visited, current_path)
-
-    current_path.pop()
-
-    if u.islower():
-        visited.remove(u)
-
-
-dfs('start', set(), [])
-
-print(len(paths))
-
-
-
-paths = set()
-
-def dfs2(u, visited, current_path):
+def dfs(u, visited, current_path, paths, visiting_condition):
 
     if u.islower():
         visited[u] += 1
 
-
     current_path.append(u)
 
     if u == 'end':
-        # print(current_path)
         paths.add(str(current_path))
 
         visited[u] -= 1
@@ -64,17 +25,24 @@ def dfs2(u, visited, current_path):
         return
 
     for adj in G[u]:
-        # if adj not in visited:
-        # if adj.isupper() or (len(adj) == 1 and visited[adj] < 2) or (visited[adj] < 1):
-        if can_go(adj, visited):
-        # if (len(adj) == 1 and visited[adj] < 2)  and adj != 'start':
-            dfs2(adj, visited, current_path)
+        if visiting_condition(adj, visited):
+            dfs(adj, visited, current_path, paths, visiting_condition)
 
     current_path.pop()
 
     if u.islower():
         visited[u] -= 1
 
+
+
+
+# Part 1
+paths = set()
+dfs('start', defaultdict(int), [], paths, lambda cave, visited: cave.isupper() or visited[cave] < 1)
+print(len(paths))
+
+
+# Part 2
 
 def can_go(cave, visited):
     if cave == 'start':
@@ -89,12 +57,7 @@ def can_go(cave, visited):
 
     return visited[cave] < 2
 
+paths = set()
+dfs('start', defaultdict(int), [], paths, can_go)
 
-
-
-
-
-dfs2('start', defaultdict(int), [])
-
-# print(paths)
 print(len(paths))
