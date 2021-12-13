@@ -18,82 +18,28 @@ for l in fileinput.input():
         s = l.split(',')
         G.add((int(s[0]), int(s[1])))
 
-# for (axis, coord) in folds:
-
-for axis, fold in folds:
-    # axis, fold = folds[0]
-    GG = set()
+for i, (axis, fold) in enumerate(folds):
     maxY = max([y for _, y in G])
     maxX = max([x for x, _ in G])
 
-    # print(axis, fold)
+    if axis == 'y':
+        G = {(x,y) for x, y in G if y < fold} | {(x, fold - abs(fold - y)) for x, y in G if y > fold}
+    else:
+        G = {(x,y) for x, y in G if x < fold} | {(fold - abs(fold - x), y) for x, y in G if x > fold}
 
-    if axis == 'y' and fold >= maxY / 2:
-        for x, y in G:
-            if y == fold:
-                continue
+    #part 1
+    if i == 0:
+        print(len(G))
 
-            if y < fold:
-                GG.add((x, y))
-            else:
-                yy = fold - abs(fold - y)
-                GG.add((x, yy))
-
-    if axis == 'y' and fold < maxY / 2:
-        for x, y in G:
-            if y == fold:
-                continue
-
-            if y < fold:
-                yy = y - fold + abs(fold - maxY)
-                GG.add((x, yy))
-            else:
-                yy = maxY - y
-                GG.add((x, yy))
-
-
-    # X
-
-    if axis == 'x' and fold >= maxX / 2:
-        for x, y in G:
-            if x == fold:
-                continue
-
-            if x < fold:
-                GG.add((x, y))
-            else:
-                xx = fold - abs(fold - x)
-                GG.add((xx, y))
-
-    if axis == 'x' and fold < maxX / 2:
-        for x, y in G:
-            if x == fold:
-                continue
-
-            if x < fold:
-                xx = x - fold + abs(fold - maxX)
-                GG.add((xx, y))
-            else:
-                xx = maxX - y
-                GG.add((xx, y))
-
-    G = GG
-    print(len(G))
-
-
-# print(len(G))
-
-# print(G)
 
 maxC = max([y for _, y in G])
 maxR = max([x for x, _ in G])
 
 
 for c in range(maxC + 1):
-    tmp = []
     for r in range(maxR + 1):
         if (r, c) in G:
-            tmp.append('█')
+            print('█', end = '')
         else:
-            tmp.append(' ')
-    print(''.join(tmp))
+            print(' ', end='')
+    print('')
