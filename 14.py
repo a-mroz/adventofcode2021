@@ -1,19 +1,22 @@
 from collections import Counter
 import fileinput
 
-G = set()
 
-folds = []
-
+def diff_single_letters(counter):
+    single = Counter()
+    for k, v in counter.items():
+        single[k[0]] += v
+    single[start[-1]] += 1
+    return single.most_common()[0][1] - single.most_common()[-1][1]
 
 start = None
-rules = []
+rules = {}
 
 for l in fileinput.input():
     l = l.strip()
 
     if start == None:
-        start = l
+        start = list(l)
         continue
 
     if l == '':
@@ -21,25 +24,25 @@ for l in fileinput.input():
 
     s = l.split(' -> ')
 
-    rules.append((s[0], s[1]))
+    rules[s[0]] = s[1]
+    # rules.append((s[0], s[1]))
 
 res = list(start)
 
+
+c = Counter( (a+b) for a,b in zip(res, res[1:]))
+
 for i in range(40):
+    cc = Counter()
 
-    n = []
-    for a, b in zip(res, res[1:]):
-        n.append(a)
-        for r1, r2 in rules:
-            if r1[0] == a and r1[1] == b:
-                # print(a, b, '-> ', r1, r2)
-                n.append(r2)
+    for pair, cnt in c.items():
+        middle = rules[pair]
+        cc[pair[0] + middle] += cnt
+        cc[middle + pair[1]] += cnt
 
-    n.append(res[-1])
-    res = n
+    c = cc
 
-    print(i)
+    if i == 9:
+        print(diff_single_letters(c))
 
-c = Counter(res)
-print(c.most_common())
-print(c.most_common()[0][1] - c.most_common()[-1][1])
+print(diff_single_letters(c))
