@@ -1,8 +1,9 @@
 min_x = 14
 max_x = 50
 min_y = -267
-max_y = -255
+max_y = -225
 
+# Example:
 # min_x = 20
 # max_x = 30
 # min_y = -10
@@ -29,28 +30,25 @@ def steps(dx, dy):
     res = 0
 
     while y >= min_y:
-    # while x <= max_x + 1 and y >= min_y - 1:
             x, y, dx, dy = step(x, y, dx, dy)
-            print(x, y)
             res = max(res, y)
 
             if min_x <= x <= max_x and min_y <= y <= max_y:
-                # print('hit', x, y)
-                # print('min_y <= y <= max_y', min_y <= y <= max_y, min_y, y, max_y)
                 return True, res
     return False, 0
 
 max_height = 0
+hits = 0
 
-for vx in range(max_x + 1):
-    for vy in range(-min_y):
-# for vx in range(6, 7):
-    # for vy in range(3, 4):
+
+for vx in range(-max_x, max_x + 1):
+    for vy in range(min_y, -min_y):
         hit, height = steps(vx, vy)
         if hit:
-            # print(vx, vy, height)
+            hits += 1
             max_height = max(max_height, height)
 
 
 
 print(max_height)
+print(hits)
