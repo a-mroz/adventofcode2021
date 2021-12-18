@@ -190,7 +190,7 @@ def task2():
         for y in range(len(trees)):
 
             # We modify the trees in place, so using deepcopy here to work on fresh clone
-            tmp = add(copy.deepcopy(trees[x]), copy.deepcopy(trees[y]))
+            tmp = add(parse_tree(str(trees[x])), parse_tree(str(trees[y])))
             reduce(tmp)
             value = magnitude(tmp)
             max_val = max(value, max_val)
