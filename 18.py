@@ -1,5 +1,7 @@
 import fileinput
 import math
+import copy
+import datetime
 
 class Node:
     def __init__(self, parent, value = None, left = None, right = None):
@@ -13,8 +15,7 @@ class Node:
 
 
     def __str__(self):
-        if self.left is None and self.right is None:
-        # if type(self.value) is int:
+        if type(self.value) is int:
             return str(self.value)
 
         return '[' + str(self.left) + ',' + str(self.right) + ']'
@@ -179,19 +180,22 @@ def task1():
 
 
 def task2():
+
+    begin_time = datetime.datetime.now()
+
     trees = parse_file()
-    max_val = -99999999999
-    print(len(trees))
+    max_val = float('-inf')
+
     for x in range(len(trees)):
         for y in range(len(trees)):
-            print(x, y)
-            # TODO we modify the trees inside the loop, so a quick hack is to read them back from the file. Unfortunately, it's terribly slow
-            trees2 = parse_file()
 
-            tmp = add(trees2[x], trees2[y])
+            # We modify the trees in place, so using deepcopy here to work on fresh clone
+            tmp = add(copy.deepcopy(trees[x]), copy.deepcopy(trees[y]))
             reduce(tmp)
             value = magnitude(tmp)
             max_val = max(value, max_val)
+
+    print(datetime.datetime.now() - begin_time)
 
     return max_val
 
