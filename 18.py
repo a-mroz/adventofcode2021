@@ -53,40 +53,25 @@ def add(t1, t2):
     t2.parent = new_tree
     return new_tree
 
-
-
-
-
-
 def reduce(tree):
-    example = parse_tree('[[[[0,7],4],[[7,8],[0,[6,7]]]],[1,1]]')
-
     any_action = True
 
     while any_action:
         exploded = True
         while exploded:
             exploded = explode(tree)
-            if exploded:
-                print('after explode', tree)
-
 
         splitted = split(tree)
-        if splitted:
-            print('after split', tree)
-            print('tree == example', tree == example)
 
         any_action = exploded or splitted
 
 def explode(tree, level = 0):
-    # print(tree)
     if tree is None or (type(tree.value) is int and level < 4):
         return False
 
     if level == 4 and tree.left is not None and tree.right is not None:
         assert type(tree.left.value) is int
         assert type(tree.right.value) is int
-        # print('level=4', tree)
         add_x_to_elem_on_left(tree, tree.left.value)
         add_x_to_elem_on_right(tree, tree.right.value)
 
@@ -104,9 +89,7 @@ def explode(tree, level = 0):
 def add_x_to_elem_on_left(tree, value):
     left_subtree = find_left_subtree(tree)
     if left_subtree:
-        print('left subtree', left_subtree)
         rightmost = find_rightmost_leaf(left_subtree)
-        print('rightmost', rightmost, value)
         if rightmost:
             rightmost.value += value
 
@@ -135,22 +118,16 @@ def find_rightmost_leaf(tree):
 
 def add_x_to_elem_on_right(tree, value):
     right_subtree = find_right_subtree(tree)
-    print('right subtree', right_subtree)
     if right_subtree:
-        print('right_subtree', right_subtree)
         leftmost = find_leftmost_leaf(right_subtree)
-        print('leftmost', leftmost, value)
         if leftmost:
             leftmost.value += value
 
 
 def find_right_subtree(tree):
-    print('looking for right subtree', tree)
     parent = tree.parent
-    print('parent', parent)
     # root
     if parent.parent is None:
-        print('parent.parent is None')
         return parent.right if parent.right is not tree else None
 
     if parent.right is tree:
@@ -190,25 +167,34 @@ def magnitude(tree):
 
     return 3 * magnitude(tree.left) + 2 * magnitude(tree.right)
 
-example = parse_tree('[[[[0,7],4],[[7,8],[0,[6,7]]]],[1,1]]')
-
-print(example)
-reduce(example)
-print(example)
-print('')
-
-
 
 def task1():
     trees = parse_file()
     res = trees[0]
 
     for tree in trees[1:]:
-        print(res)
         res = add(res, tree)
-        print('after addition: ', res)
         reduce(res)
-    print(res)
     return magnitude(res)
 
+
+def task2():
+    trees = parse_file()
+    max_val = -99999999999
+    print(len(trees))
+    for x in range(len(trees)):
+        for y in range(len(trees)):
+            print(x, y)
+            # TODO we modify the trees inside the loop, so a quick hack is to read them back from the file. Unfortunately, it's terribly slow
+            trees2 = parse_file()
+
+            tmp = add(trees2[x], trees2[y])
+            reduce(tmp)
+            value = magnitude(tmp)
+            max_val = max(value, max_val)
+
+    return max_val
+
+
 print(task1())
+print(task2())
