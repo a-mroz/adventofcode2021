@@ -57,16 +57,15 @@ def play(round, algorithm, grid):
     return G
 
 
-def task1():
+def task():
     algorithm, grid = parse()
 
-    print_grid(grid)
-    print('')
-
-    for round in range(2):
+    for round in range(50):
         grid = play(round, algorithm, grid)
-        print_grid(grid)
-        print('')
+        if round == 1:
+            print(len(grid))
+
+    print_grid(grid)
 
     return len(grid)
 
@@ -86,4 +85,4 @@ def print_grid(grid):
 
 
 
-print(task1())
+print(task())
