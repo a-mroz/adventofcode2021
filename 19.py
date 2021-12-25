@@ -131,20 +131,25 @@ def find_match(known_scanners, known_coords, scanners):
                         if (t2x + dx, t2y + dy, t2z + dz) in known_coords:
                             matches += 1
 
-                    # if matches > 1:
-                    #     print(matches)
-
                     if matches >= 12:
-                        # print("matched!")
                         # we have a match for a given scanner, and we known the transformed coords
-                        return i, [(x + dx, y + dy, z + dz) for (x, y, z) in rotated]
+                        return i, [(x + dx, y + dy, z + dz) for (x, y, z) in rotated], dx, dy, dz
 
     assert False # shouldn't reach here
 
 
+def manhattan(p1, p2):
+    x1, y1, z1 = p1
+    x2, y2, z2 = p2
+
+    return abs(x1 - x2) + abs(y1 - y2) + abs(z1 - z2)
+
 
 def task1():
     scanners = parse()
+
+    final_scanners = [None for x in scanners]
+    final_scanners[0] = (0, 0, 0)
 
     known_scanners = set()
     known_scanners.add(0)
@@ -153,11 +158,22 @@ def task1():
     known_coords |= set(scanners[0])
 
     while len(known_scanners) < len(scanners):
-        matched_idx, matched_coords = find_match(known_scanners, known_coords, scanners)
+        matched_idx, matched_coords, dx, dy, dz = find_match(known_scanners, known_coords, scanners)
         known_scanners.add(matched_idx)
         known_coords |= set(matched_coords)
+        final_scanners[matched_idx] = (dx, dy, dz)
 
     print(len(known_coords))
+
+    print(final_scanners)
+
+
+    max_manhattan = float('-inf')
+    for s1 in final_scanners:
+        for s2 in final_scanners:
+            max_manhattan = max(manhattan(s1, s2), max_manhattan)
+
+    print(max_manhattan)
 
 
 task1()
