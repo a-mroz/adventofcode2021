@@ -19,9 +19,7 @@ dc = [0, 1, 0, -1]
 
 def dijkstra(G, start, end):
    seen = set()
-   q = [(start, 0)]
-#    q = deque()
-#    q.append((start, 0))
+   q = [(start, 0)] # TODO use a priority queue instead
 
    while q:
         node, dist = q.pop(0)
@@ -57,6 +55,7 @@ for r in range(R):
 
 print(dijkstra(graph, (0, 0), (R - 1, C - 1)))
 
+# part 2
 
 # expand horizontally
 for r in G:
@@ -66,10 +65,6 @@ for r in G:
             previous_c_idx = new_c_idx - C
 
             r.append((r[previous_c_idx] + 1) % 10 or 1)
-
-# print('g2', len(G), len(G[0]))
-# print(G)
-
 
 # expand vertically
 for i in range(1, 5):
@@ -81,13 +76,6 @@ for i in range(1, 5):
 
 R = len(G)
 C = len(G[0])
-print(R, C)
-# print(G[9][4])
-# print(G[19][4])
-# print(G[29][4])
-# print(G[39][4])
-# print(G[49][4])
-
 
 graph = {}
 for r in range(R):
@@ -103,5 +91,4 @@ for r in range(R):
 
             graph[(r, c)] = links
 
-# print(graph)
 print(dijkstra(graph, (0, 0), (R - 1, C - 1)))
