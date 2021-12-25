@@ -1,0 +1,497 @@
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 15
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 15
+mul y x
+add z y
+
+z0 = w0 + 15
+
+
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 12
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 5
+mul y x
+add z y
+
+z1 = (z0 * 26 ) + w1 + 5
+
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 13
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 6
+mul y x
+add z y
+
+z2 = (z1 * 26) + w2 + 6
+
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -14
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 7
+mul y x
+add z y
+
+# Two options
+# if z2 % 26 - 14 == w3:
+x = 0
+z3 = (z2 // 26) + w3 + 7
+# else
+x = 1
+z3 = (z2 // 26 * 26) + w3 + 7
+
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 15
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 9
+mul y x
+add z y
+
+z4 = (z3 * 26) + w4 + 9
+
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -7
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 6
+mul y x
+add z y
+
+# Two options
+# if z4 % 26 - 7 == w5
+z5 = z4 + w5 + 6
+# else
+z5 = (z4 * 26) + w5 + 6
+
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 14
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 14
+mul y x
+add z y
+
+z6 = (z5 * 26) + w6 + 14
+
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 15
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 3
+mul y x
+add z y
+
+
+z7 = (z6 * 26) + w7 + 3
+
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 15
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 1
+mul y x
+add z y
+
+z8 = (z7 * 26) + w8 + 1
+
+
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -7
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 3
+mul y x
+add z y
+
+# Two options
+# if (z8 % 26) - 7 == w9
+z9 = z8 + w9 + 3
+# else
+z9 = (z8 * 26) + w9 + 3
+
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -8
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 4
+mul y x
+add z y
+
+# Two options
+# if (z9 % 26) - 8 == w10
+z10 = z9 + w10 + 4
+# else
+z10 = (z9 * 26) + w10 + 4
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -7
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 6
+mul y x
+add z y
+
+# Two options
+# if (z10 % 26) - 7 == w11
+z11 = z10 + w11 + 6
+# else
+z11 = (z10 * 26) + w11 + 6
+
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -5
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 7
+mul y x
+add z y
+
+# Two options
+# if (z11 % 26) - 5 == w12
+z12 = z11 + w12 + 7
+# else
+z12 = (z11 * 26) + w12 + 7
+
+
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -10
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 1
+mul y x
+add z y
+
+# Two options
+# if (z12 % 26) - 10 == w12
+z13 = z12 + w13 + 1
+# else
+z13 = (z12 * 26) + w13 + 1
+
+
+
+----
+
+
+z0 = w0 + 15
+z1 = (z0 * 26 ) + w1 + 5
+z2 = (z1 * 26) + w2 + 6
+
+# Two options
+# if z2 % 26 - 14 == w3:
+x = 0
+z3 = z2 + w3 + 7
+# else
+x = 1
+z3 = (z2 * 26) + w3 + 7
+
+
+z4 = (z3 * 26) + w4 + 9
+
+
+# Two options
+# if z4 % 26 - 7 == w5
+z5 = z4 + w5 + 6
+# else
+z5 = (z4 * 26) + w5 + 6
+
+z6 = (z5 * 26) + w6 + 14
+z7 = (z6 * 26) + w7 + 3
+z8 = (z7 * 26) + w8 + 1
+
+
+# Two options
+# if (z8 % 26) - 7 == w9
+z9 = z8 + w9 + 3
+# else
+z9 = (z8 * 26) + w9 + 3
+
+
+# Two options
+# if (z9 % 26) - 8 == w10
+z10 = z9 + w10 + 4
+# else
+z10 = (z9 * 26) + w10 + 4
+
+
+# Two options
+# if (z10 % 26) - 7 == w11
+z11 = z10 + w11 + 6
+# else
+z11 = (z10 * 26) + w11 + 6
+
+
+# Two options
+# if (z11 % 26) - 5 == w12
+z12 = z11 + w12 + 7
+# else
+z12 = (z11 * 26) + w12 + 7
+
+# Two options
+# if (z12 % 26) - 10 == w12
+z13 = z12 + w13 + 1
+# else
+z13 = (z12 * 26) + w13 + 1
+
+---
+0 <= w1, w2, ... w13 <= 9
+
+z13 == 0
+(z12 * 26) + w13 + 1 = 0
+w13 = -(z12 * 26) - 1
+
+
+
+-----
+
+# Thanks to this post: https://github.com/mrphlip/aoc/blob/master/2021/24.md I understood that this is pushing and popping from a stack
+
+z.push(w0 + 15)
+z.push(w1 + 5)
+z.push(w2 + 6)
+if w3 != z.pop() - 14:
+  z.push(w3 + 7)
+z.push(w4 + 9)
+if w5 != z.pop() - 7:
+  z.push(w5 + 6)
+z.push(w6 + 14)
+z.push(w7 + 3)
+z.push(w8 + 1)
+if w9 != z.pop() - 7:
+  z.push(w9 + 3)
+if w10 != z.pop() - 8:
+  z.push(w10 + 4)
+if w11 != z.pop() - 7:
+  z.push(w10 + 6)
+if w12 != z.pop() - 5:
+  z.push(w10 + 7)
+if w13 != z.pop() - 10:
+   z.push(w10 + 1)
+
+# It must meet the requirements
+W2 - 8 = w3
+w4 + 2 = w5
+w8 - 6 = w9
+w7 - 5 = w10
+w6 + 7 = w11
+w1 = w12
+w0 + 5 = w13
+
+
+# Maximize:
+w0 = 4
+w13 = 9
+
+w1 = 9
+w12 = 9
+
+w2 = 9
+w3 = 1
+
+w4 = 7
+w5 = 9
+
+w6 = 2
+w11 = 9
+
+w7 = 9
+w10 = 4
+
+w8 = 9
+w9 = 3
+
+49917929934999
+
+# Minimize
+w0 = 1
+w13 = 6
+
+w1 = 1
+w12 = 1
+
+w2 = 9
+w3 = 1
+
+w4 = 1
+w5 = 3
+
+w6 = 1
+w11 = 8
+
+w7 = 6
+w10 = 1
+
+w8 = 7
+w9 = 1
+
+11911316711816
